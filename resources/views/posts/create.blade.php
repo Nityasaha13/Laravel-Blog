@@ -9,7 +9,7 @@
                 <div class="card-header">{{ __('Create Post') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ url('/create-post') }}">
+                    <form method="POST" action="{{ route('posts.store') }}">
                         @csrf
                         <div class="form-group mb-3">
                             <label for="title">{{ __('Title') }}</label>

@@ -3,18 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Post;
-use App\Models\Category;
-use App\Models\PostCategories;
 
-class PostController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('posts.index');
+        //
     }
 
     /**
@@ -22,7 +19,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        //
     }
 
     /**
@@ -30,18 +27,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
-        $create_post = Post::create($data);
-        foreach($data['categories'] as $category){
-            $create = [
-                'post_id' => $create_post->id,
-                'category_id' => $category
-            ];
-            $save_category = PostCategories::create($create);
-        }
-        if ($data) {
-            return $this->index();
-        }
+        //
     }
 
     /**
