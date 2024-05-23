@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CreatePosts;
+use App\Http\Controllers\AddCategoryController;
+use App\Models\Post;
+use App\Models\Category;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,24 +17,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[PostController::class,'index'] );
+Route::get('/', [CreatePosts::class, 'index'])->name('users.index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/blog', [CreatePosts::class, 'index'])->name('users.index');
+Route::get('/edit/{post}', [CreatePosts::class, 'show']);
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::get('/categories',[AddCategoryController::class,'index']);
 
-Route::middleware('auth')->group(function () {
-    Route::resource('/posts', PostController::class);
-});
+Route::get('/create-post',[CreatePosts::class, 'create'])->name('blog-create');
+Route::get('/show',[CreatePosts::class, 'index']);
 
-Route::middleware('auth')->group(function () {
-    Route::resource('/category', PostController::class);
-});
+Route::get('/add-category',function(){
+    return view('Categories/add');
+})->name('add-category');
 
-require __DIR__.'/auth.php';
+Route::get('/edit-category',function(){
+    return view('Categories/edit');
+})->name('edit-category');
+
+Route::get('/edit-posts',function(){
+    return view('Blog/edit');
+})->name('edit-posts');
+
+Route::post('/create-post',[CreatePosts::class, 'create_posts']);
+Route::post('/add-category',[AddCategoryController::class, 'add_categories']);
