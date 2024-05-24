@@ -20,7 +20,7 @@ use App\Models\Category;
 Route::get('/', [CreatePosts::class, 'index'])->name('users.index');
 
 Route::get('/blog', [CreatePosts::class, 'index'])->name('users.index');
-Route::get('/edit/{post}', [CreatePosts::class, 'show']);
+Route::get('/edit/{post}', [CreatePosts::class, 'edit']);
 
 Route::get('/categories',[AddCategoryController::class,'index']);
 

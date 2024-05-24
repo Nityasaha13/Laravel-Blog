@@ -17,7 +17,7 @@
         <tr>
           <th scope="row">{{$id}}</th>
           <td>{{ $name }}</td>
-          <td><button type="button" class="btn btn-success">edit</button><button type="button" class="btn btn-danger">delete</button></td>
+          <td><button type="button" class="btn btn-success">edit</button><button type="button" class="btn btn-danger mx-2">delete</button></td>
         </tr>
       
       @endforeach

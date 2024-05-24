@@ -27,7 +27,7 @@ class CreatePosts extends Controller
         $create_post = Post::create($data);
         foreach($data['categories'] as $category){
             $create = [
-                'post_id' => $create_post->id,
+                'post_id' => $create_post->id, 
                 'category_id' => $category
             ];
             $save_category = PostCategories::create($create);
@@ -37,9 +37,11 @@ class CreatePosts extends Controller
         }
     }
 
-    public function show(String $post)
+    public function edit(String $post)
     {
         $posts = Post::with('categories')->where('id', $post)->first();
-        dd($posts);
+        // dd($posts);
+
+        return view('Blog/edit', ['posts' => $posts]);
     }
 }

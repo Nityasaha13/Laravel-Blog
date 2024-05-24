@@ -18,7 +18,9 @@ class AddCategoryController extends Controller
         $data->name= $request->input('categories');
         $data -> save();
 
-        return view('Categories/edit');
+        if($data){
+            return $this->index();
+        }
     }
 
     public function index()
