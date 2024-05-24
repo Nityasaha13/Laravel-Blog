@@ -13,7 +13,7 @@
           {{$category->name}}
         @endforeach  
         </p>
-        <p><a href="/edit/{{$post->id}}" class="btn btn-success mx-2">edit</a><button type="button" class="btn btn-danger">Delete</button></p>
+        <p><a href="/edit/{{$post->id}}" class="btn btn-success mx-2">edit</a><a href="/delete" class="btn btn-danger">Delete</a></p>
       </div>
   </div>
 @endforeach

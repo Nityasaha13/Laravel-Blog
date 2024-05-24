@@ -58,7 +58,7 @@ class AddCategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('Categories/edit', ['category'=> $category]);
     }
 
     /**

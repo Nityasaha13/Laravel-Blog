@@ -31,9 +31,7 @@ Route::get('/add-category',function(){
     return view('Categories/add');
 })->name('add-category');
 
-Route::get('/edit-category',function(){
-    return view('Categories/edit');
-})->name('edit-category');
+Route::get('/edit-category',[AddCategoryController::class,'edit'])->name('edit-category');
 
 Route::get('/edit-posts',function(){
     return view('Blog/edit');
