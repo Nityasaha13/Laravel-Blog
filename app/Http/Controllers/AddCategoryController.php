@@ -18,9 +18,7 @@ class AddCategoryController extends Controller
         $data->name= $request->input('categories');
         $data -> save();
 
-        if($data){
-            return $this->index();
-        }
+        return back()->with('success', 'category added');
     }
 
     public function index()
@@ -29,36 +27,18 @@ class AddCategoryController extends Controller
         return view('Categories/index', ['categories' => $categories]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function add(){
+        return view('Categories/add');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Category $category)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Category $category)
     {
-        return view('Categories/edit', ['category'=> $category]);
+        $category_f = Category::find($category);
+        return view('Categories/edit',['category' => $category]);
     }
 
     /**
@@ -66,14 +46,23 @@ class AddCategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $data = $request->all();
+        // dd($data);
+        // $category_data = Category::find($category);
+        // Update the post with the new data
+        $update = $category->update([
+            'name' => $data['categories']
+        ]);
+        return back()->with('success', "Updated category");
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(String $category)
     {
-        //
+        $cat = Category::find($category);
+        $cat->delete();
+        return redirect('/categories');
     }
 }

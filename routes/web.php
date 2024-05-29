@@ -19,23 +19,22 @@ use App\Models\Category;
 
 Route::get('/', [CreatePosts::class, 'index'])->name('users.index');
 
+
 Route::get('/blog', [CreatePosts::class, 'index'])->name('users.index');
-Route::get('/edit/{post}', [CreatePosts::class, 'edit']);
+Route::post('/create-post',[CreatePosts::class, 'create_posts'])->name('create-post');
+Route::get('/create-post-form',[CreatePosts::class, 'create'])->name('create-post-form');
+// Route::post('/create-post',[CreatePosts::class, 'create_posts'])->name('create-post');
+Route::get('/edit/{post}', [CreatePosts::class, 'edit'])->name('edit-post');
+Route::put('/update-post/{post}',[CreatePosts::class, 'update'])->name('update.post');
+Route::get('/update-post/{post}',[CreatePosts::class, 'edit'])->name('update.post.back');
+Route::get('/delete-post/{post}',[CreatePosts::class, 'delete'])->name('delete-post');
 
-Route::get('/categories',[AddCategoryController::class,'index']);
 
-Route::get('/create-post',[CreatePosts::class, 'create'])->name('blog-create');
-Route::get('/show',[CreatePosts::class, 'index']);
+Route::get('/categories',[AddCategoryController::class,'index'])->name('categories.show');
+Route::post('/add-category',[AddCategoryController::class, 'add_categories'])->name('category.store');
+Route::get('/add-category-form',[AddCategoryController::class,'add'])->name('add-category');
+Route::get('/edit-category/{category}',[AddCategoryController::class,'edit'])->name('edit-category');
+Route::put('/update-category/{category}',[AddCategoryController::class,'update'])->name('update-category');
+Route::get('/update-category/{category}',[AddCategoryController::class,'edit'])->name('update-category-back');
+Route::get('/delete-category/{categoryid}',[AddCategoryController::class, 'destroy'])->name('delete-category');
 
-Route::get('/add-category',function(){
-    return view('Categories/add');
-})->name('add-category');
-
-Route::get('/edit-category',[AddCategoryController::class,'edit'])->name('edit-category');
-
-Route::get('/edit-posts',function(){
-    return view('Blog/edit');
-})->name('edit-posts');
-
-Route::post('/create-post',[CreatePosts::class, 'create_posts']);
-Route::post('/add-category',[AddCategoryController::class, 'add_categories']);

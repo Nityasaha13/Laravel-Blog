@@ -27,21 +27,58 @@ class CreatePosts extends Controller
         $create_post = Post::create($data);
         foreach($data['categories'] as $category){
             $create = [
-                'post_id' => $create_post->id, 
+                'post_id' => $create_post->id,
                 'category_id' => $category
             ];
             $save_category = PostCategories::create($create);
         }
         if ($data) {
-            return $this->index();
+            return back()->with('success', 'post created');
         }
     }
 
     public function edit(String $post)
     {
-        $posts = Post::with('categories')->where('id', $post)->first();
-        // dd($posts);
+        $post = Post::with('categories')->find($post);
+        $categories = Category::all();
+        return view('Blog/edit', ['post' =>  $post, 'categories' => $categories]);
+    }
 
-        return view('Blog/edit', ['posts' => $posts]);
+
+    public function update(Request $request, $id)
+    {
+        // Retrieve all request data
+        $data = $request->all();
+
+        // Find the post by ID
+        $post = Post::find($id);
+
+        if (!$post) {
+            return redirect()->back()->with('error', 'Post not found.');
+        }
+
+        // Update the post with the new data
+        $post->update([
+            'title' => $data['title'],
+            'content' => $data['content']
+            // Add other fields to update as needed
+        ]);
+
+        // Synchronize the post categories
+        if (isset($data['categories'])) {
+            $post->categories()->sync($data['categories']);
+        }
+
+        // Redirect to the post index or any other desired location
+         return redirect()->route('update.post.back',$post->id)->with('success', 'Updated successfully');
+    }
+
+
+    public function delete(Request $request, $id)
+    {
+        $post_id = Post::find($id);
+
+        $post_id->delete();
+        return redirect('/');
     }
 }

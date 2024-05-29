@@ -2,7 +2,13 @@
 
 @section('content')
 
-<form method="POST" action="{{url('/')}}/add-category">
+@if (session()->has('success'))
+  <div class="alert alert-success" role="alert">
+    {{ session()->get('success') }}
+  </div>
+@endif
+
+<form method="POST" action="{{route('category.store')}}">
     @csrf
 
     <h1 class="align-items-center">Add category</h1>

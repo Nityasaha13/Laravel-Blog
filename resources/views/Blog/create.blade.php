@@ -2,6 +2,12 @@
 
 @section('content')
 
+@if (session()->has('success'))
+  <div class="alert alert-success" role="alert">
+    {{ session()->get('success') }}
+  </div>
+@endif
+
 <form method="POST" action="{{url('/')}}/create-post"> 
     @csrf
     <h1 class="align-items-center">Create Posts</h1>

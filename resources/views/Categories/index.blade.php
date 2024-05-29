@@ -17,7 +17,7 @@
         <tr>
           <th scope="row">{{$id}}</th>
           <td>{{ $name }}</td>
-          <td><a href="{{route('edit-category')}}" class="btn btn-success mx-2">edit</a><a href="/delete/" class="btn btn-danger">Delete</a></td>
+          <td><a href="/edit-category/{{$id}}" class="btn btn-success">edit</a><a href="{{route('delete-category', $id)}}" class="btn btn-danger mx-2">delete</a></td>
         </tr>
       
       @endforeach
