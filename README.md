@@ -1,5 +1,7 @@
 # Simple Laravel Blog
 
+I am nitya
+
 This project is a simple blog site created using Laravel, a PHP framework. It allows users to create, read, update, and delete blog posts.
 
 ## Features
