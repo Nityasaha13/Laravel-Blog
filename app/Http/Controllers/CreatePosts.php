@@ -47,29 +47,22 @@ class CreatePosts extends Controller
 
     public function update(Request $request, $id)
     {
-        // Retrieve all request data
         $data = $request->all();
-
-        // Find the post by ID
         $post = Post::find($id);
 
         if (!$post) {
             return redirect()->back()->with('error', 'Post not found.');
         }
-
-        // Update the post with the new data
+        
         $post->update([
             'title' => $data['title'],
             'content' => $data['content']
-            // Add other fields to update as needed
         ]);
-
-        // Synchronize the post categories
+        
         if (isset($data['categories'])) {
             $post->categories()->sync($data['categories']);
         }
 
-        // Redirect to the post index or any other desired location
          return redirect()->route('update.post.back',$post->id)->with('success', 'Updated successfully');
     }
 

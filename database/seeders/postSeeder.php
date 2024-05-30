@@ -2,27 +2,44 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Post;
+use App\Models\PostCategories;
 
-
-class postSeeder extends Seeder
+class PostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $data = [
+        $all_cats=['developement', 'news', 'fact', 'movie','tech', 'finance'];
 
-            'title' => "Hello World!",
-            'content' => "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+        for($i=1;$i<=10;$i++){
+
+            $cat_data = [
+                'name' => fake()->randomElement($all_cats)
+            ];
+            $post_data = [
+
+                'title'   => fake()->sentence(rand(3,5)),
+                'content' => fake()->paragraph(rand(2,4)),
 
             ];
 
-            $create_post = Post::create($data);
+            $create_post = Post::create($post_data);
+            $create_cat = Category::create($cat_data);
+
+            $post_cata = [
+                'post_id'     => $create_post->id,
+                'category_id' => $create_cat->id
+            ];
+
+            $post_category = PostCategories::create($post_cata);
+        }
 
     }
 }
