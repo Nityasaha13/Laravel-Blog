@@ -16,12 +16,12 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        $all_cats=['developement', 'news', 'fact', 'movie','tech', 'finance'];
+        // $all_cats=['developement', 'news', 'fact', 'movie','tech', 'finance'];
 
         for($i=1;$i<=10;$i++){
 
             $cat_data = [
-                'name' => fake()->randomElement($all_cats)
+                'name' => fake()->word(rand(3, 5)),
             ];
             $post_data = [
 
