@@ -81,4 +81,13 @@ class CreatePosts extends Controller
         $post_id->delete();
         return redirect('/');
     }
+
+
+    public function single_post(String $post){
+
+        $post = Post::with('categories')->find($post);
+        $categories = Category::all();
+
+        return view('Blog/single', ['post' =>  $post, 'categories' => $categories]);
+    }
 }

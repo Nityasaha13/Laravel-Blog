@@ -17,10 +17,10 @@ use App\Models\Category;
 |
 */
 
-Route::get('/', [CreatePosts::class, 'index'])->name('users.index');
+Route::get('/', [CreatePosts::class, 'index'])->name('posts.index');
 
 
-Route::get('/blog', [CreatePosts::class, 'index'])->name('users.index');
+Route::get('/blog', [CreatePosts::class, 'index'])->name('posts.index');
 Route::post('/create-post',[CreatePosts::class, 'create_posts'])->name('create-post');
 Route::get('/create-post-form',[CreatePosts::class, 'create'])->name('create-post-form');
 // Route::post('/create-post',[CreatePosts::class, 'create_posts'])->name('create-post');
@@ -38,3 +38,4 @@ Route::put('/update-category/{category}',[AddCategoryController::class,'update']
 Route::get('/update-category/{category}',[AddCategoryController::class,'edit'])->name('update-category-back');
 Route::get('/delete-category/{categoryid}',[AddCategoryController::class, 'destroy'])->name('delete-category');
 
+Route::get('/post/{postid}',[CreatePosts::class, 'single_post'])->name('single-post');
