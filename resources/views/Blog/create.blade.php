@@ -17,7 +17,11 @@
     </div>
     <div class="form-group">
         <label for="content">Content</label>
-        <textarea class="form-control" name="content" id="content" rows="5" placeholder="Enter Content"></textarea>
+        <textarea class="form-control" name="content" id="content" rows="8" placeholder="Enter Content"></textarea>
+    </div>
+    <div class="form-group mt-2">
+      <label for="thumbnail">Thumbnail</label>
+      <input type="file" id="thumbnail" name="thumbnail">
     </div>
     <div class="form-group mt-2">
         <label for="category">Categories</label>
@@ -27,7 +31,8 @@
             @endforeach
           </select>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
+    <a href="{{route('posts.index')}}" class="btn btn-warning mx-2 mt-3">back</a>
 </form>
 
 @endsection

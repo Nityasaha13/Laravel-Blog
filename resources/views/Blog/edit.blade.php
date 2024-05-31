@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
         <label for="content">Content</label>
-        <textarea class="form-control" name="content" id="content" rows="5" placeholder="Enter Content">{{$post['content']}}</textarea>
+        <textarea class="form-control" name="content" id="content" rows="10" placeholder="Enter Content">{{$post['content']}}</textarea>
     </div>
     <div class="form-group mt-2">
         <select id = "categories-box" class="categories-box" name="categories[]" multiple="multiple">
@@ -33,6 +33,7 @@
         </select>
     </div>
     <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    <a href="{{route('posts.index')}}" class="btn btn-warning mt-2 mx-2">back</a>
 </form>
 
 @endsection

@@ -29,4 +29,6 @@
     @endforeach
 </div>
 
+<p><a href="{{route('posts.index')}}" class="btn btn-warning col-md-1 mx-2 mt-3">Home</a></p>
+
 @endsection
