@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AddCategoryController extends Controller
 {
@@ -64,5 +66,17 @@ class AddCategoryController extends Controller
         $cat = Category::find($category);
         $cat->delete();
         return redirect('/categories');
+    }
+
+
+    public function category_collection(Category $category)
+    {
+        $post_ids = $category->posts()->pluck('posts.id');
+
+        $posts= Post::find($post_ids); 
+
+        // dd($posts);
+
+        return view('Categories/category-collection',['posts' => $posts, 'category' => $category]);
     }
 }

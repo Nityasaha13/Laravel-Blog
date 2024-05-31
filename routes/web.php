@@ -39,3 +39,5 @@ Route::get('/update-category/{category}',[AddCategoryController::class,'edit'])-
 Route::get('/delete-category/{categoryid}',[AddCategoryController::class, 'destroy'])->name('delete-category');
 
 Route::get('/post/{postid}',[CreatePosts::class, 'single_post'])->name('single-post');
+
+Route::get('/category-collection/{category}', [AddCategoryController::class, 'category_collection'])->name('category-collection');

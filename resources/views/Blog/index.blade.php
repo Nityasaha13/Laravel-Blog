@@ -8,10 +8,10 @@
     <div class="col-md-4">  <div class="card m-2">
         <div class="card-body">
           <h5 class="card-title"><a href="{{route('single-post',$post->id)}}">{{$post->title}}</a></h5>
-          <p class="card-text">{{Str::limit($post->content, 300)}}</p>
+          <p class="card-text">{{Str::limit($post->content, 150)}}</p>
           <p class="card-text mt-3"><strong>Categories:</strong>
             @foreach ($post->categories as $category)
-              {{$category->name}}
+              <a href="{{route('category-collection', $category->id)}}">{{$category->name}}</a>
             @endforeach 
           </p>
           <p><a href="/edit/{{$post->id}}" class="btn btn-primary">edit</a>
