@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PostThumbnailRequest;
 use App\Models\Post;
 use App\Models\Category;
 use App\Models\PostCategories;
@@ -52,10 +53,12 @@ class CreatePosts extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(PostThumbnailRequest $request, $id)
     {
-        // $path = Storage::disk('public')->put('thumbnails',$request->file('thumbnail'));
-        dd($request);
+        $path = Storage::disk('public')->put('thumbnails',$request->file('thumbnail'));
+        // dd($path);
+        // $path = $request->file('thumbnail')->store('thumbnails','public');
+
         $data = $request->all();
         $post = Post::find($id);
 
@@ -63,9 +66,14 @@ class CreatePosts extends Controller
             return redirect()->back()->with('error', 'Post not found.');
         }
         
+        if($old_thumb = $post->thumbnail){
+            Storage::disk('public')->delete($old_thumb);
+        }
+
         $post->update([
             'title' => $data['title'],
             'content' => $data['content'],
+            'thumbnail' => $path,
         ]);
         
         if (isset($data['categories'])) {

@@ -8,7 +8,7 @@
   </div>
 @endif
 
-<form method="POST" action="{{route('create-post')}}"> 
+<form method="POST" action="{{route('create-post')}}" enctype="multipart/form-data"> 
     @csrf
     <h1 class="align-items-center">Create Posts</h1>
     <div class="form-group">
