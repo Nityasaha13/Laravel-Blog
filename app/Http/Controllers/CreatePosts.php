@@ -27,10 +27,15 @@ class CreatePosts extends Controller
     {
         $path = Storage::disk('public')->put('thumbnails',$request->file('thumbnail'));
 
-        // dd($request->all());
+        // dd($path);
 
         $data = $request->all();
-        $create_post = Post::create($data);
+        
+        $create_post = Post::create([
+            'title' => $data['title'],
+            'content' => $data['content'],
+            'thumbnail' => $path,
+        ]);
 
 
         foreach($data['categories'] as $category){

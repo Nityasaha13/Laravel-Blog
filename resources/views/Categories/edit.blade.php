@@ -13,7 +13,7 @@
     @method('PUT')
     <h1 class="align-items-center">Edit category</h1>
     <div class="form-group">
-        <label for="title">Category name</label>
+        <label for="title" class="fs-5 fw-bold mt-2">Category name</label>
         <input type="text" class="form-control" name="categories" id="category" placeholder="Enter" value="{{$category['name']}}">
     </div>
     <button type="submit" class="btn btn-primary mt-2">Submit</button>

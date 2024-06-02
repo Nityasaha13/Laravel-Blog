@@ -12,20 +12,20 @@
     @csrf
     <h1 class="align-items-center">Create Posts</h1>
     <div class="form-group">
-        <label for="title">Title</label>
+        <label for="title" class="fs-5 fw-bold mt-2">Title</label>
         <input type="text" name="title" class="form-control" id="title" placeholder="Enter Title">
     </div>
     <div class="form-group">
-        <label for="content">Content</label>
+        <label for="content" class="fs-5 fw-bold mt-2">Content</label>
         <textarea class="form-control" name="content" id="content" rows="8" placeholder="Enter Content"></textarea>
     </div>
     <div class="form-group mt-2">
-      <label for="thumbnail">Thumbnail</label>
+      <label for="thumbnail" class="fs-5 fw-bold mt-2">Thumbnail</label>
       <input type="file" id="thumbnail" name="thumbnail">
       <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
     </div>
     <div class="form-group mt-2">
-        <label for="category">Categories</label>
+        <label for="category" class="fs-5 fw-bold mt-2">Categories</label>
           <select id = "categories-box" class="categories-box" name="categories[]" multiple="multiple" style="width: 300px;">
             @foreach($categories as $id => $name)
                 <option value="{{ $id }}">{{ $name }}</option>
