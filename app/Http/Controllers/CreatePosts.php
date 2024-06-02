@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\Category;
 use App\Models\PostCategories;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CreatePosts extends Controller
 {
@@ -23,8 +24,14 @@ class CreatePosts extends Controller
 
     public function create_posts(Request $request)
     {
+        $path = Storage::disk('public')->put('thumbnails',$request->file('thumbnail'));
+
+        // dd($request->all());
+
         $data = $request->all();
         $create_post = Post::create($data);
+
+
         foreach($data['categories'] as $category){
             $create = [
                 'post_id' => $create_post->id,
@@ -47,6 +54,8 @@ class CreatePosts extends Controller
 
     public function update(Request $request, $id)
     {
+        // $path = Storage::disk('public')->put('thumbnails',$request->file('thumbnail'));
+        dd($request);
         $data = $request->all();
         $post = Post::find($id);
 
@@ -56,7 +65,7 @@ class CreatePosts extends Controller
         
         $post->update([
             'title' => $data['title'],
-            'content' => $data['content']
+            'content' => $data['content'],
         ]);
         
         if (isset($data['categories'])) {

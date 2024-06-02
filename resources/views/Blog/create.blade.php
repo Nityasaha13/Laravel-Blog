@@ -8,7 +8,7 @@
   </div>
 @endif
 
-<form method="POST" action="{{url('/')}}/create-post"> 
+<form method="POST" action="{{route('create-post')}}"> 
     @csrf
     <h1 class="align-items-center">Create Posts</h1>
     <div class="form-group">
@@ -22,6 +22,7 @@
     <div class="form-group mt-2">
       <label for="thumbnail">Thumbnail</label>
       <input type="file" id="thumbnail" name="thumbnail">
+      <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
     </div>
     <div class="form-group mt-2">
         <label for="category">Categories</label>

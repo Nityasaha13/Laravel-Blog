@@ -8,7 +8,7 @@
   </div>
 @endif
 
-<form method="POST" action="{{route('update.post', $post->id)}}">
+<form method="POST" action="{{route('update.post', $post->id)}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <input type="hidden" value="{{$post['id']}}" name="post_id">
@@ -20,6 +20,11 @@
     <div class="form-group">
         <label for="content">Content</label>
         <textarea class="form-control" name="content" id="content" rows="10" placeholder="Enter Content">{{$post['content']}}</textarea>
+    </div>
+    <div class="form-group mt-2">
+        <label for="thumbnail">Thumbnail</label>
+        <input type="file" id="thumbnail" name="thumbnail">
+        <x-input-error class="mt-2" :messages="$errors->get('thumbnail')" />
     </div>
     <div class="form-group mt-2">
         <select id = "categories-box" class="categories-box" name="categories[]" multiple="multiple">
