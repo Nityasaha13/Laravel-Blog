@@ -105,4 +105,15 @@ class CreatePosts extends Controller
 
         return view('Blog/single', ['post' =>  $post, 'categories' => $categories]);
     }
+
+
+    public function search(Request $request) {
+        $posts = Post::where('title', 'like', '%' . $request->search . '%')
+                    ->orWhere('content', 'like', '%' . $request->search . '%')->get();
+
+        // dd($posts);
+    
+        return view('layouts.partials.search-results', compact('posts'));
+    }
+    
 }

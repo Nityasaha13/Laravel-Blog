@@ -22,6 +22,17 @@
                 width: 300px !important;
                 min-width: 300px !important;
             }
+
+            .custom-width {
+                width: 20%;
+            }
+            .input-group .form-control {
+                border-color: #343a40; /* Bootstrap dark color */
+            }
+
+            .card-title a, td a{
+                text-decoration: none
+            }
         </style>
 </head>
 

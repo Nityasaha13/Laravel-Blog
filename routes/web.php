@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CreatePosts;
 use App\Http\Controllers\AddCategoryController;
+use App\Http\Controllers\API\PostApi;
 use App\Models\Post;
 use App\Models\Category;
 
@@ -41,3 +42,6 @@ Route::get('/delete-category/{categoryid}',[AddCategoryController::class, 'destr
 Route::get('/post/{postid}',[CreatePosts::class, 'single_post'])->name('single-post');
 
 Route::get('/category-collection/{category}', [AddCategoryController::class, 'category_collection'])->name('category-collection');
+
+
+Route::get('/search',[CreatePosts::class, 'search'])->name('search');

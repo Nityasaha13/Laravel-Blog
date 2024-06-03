@@ -2,27 +2,69 @@
 
 @section('content')
 
+<div class="container d-flex justify-content-end align-items-center my-2">
+  <div class="input-group custom-width">
+    <input type="search" name="search" id="search" class="form-control rounded border-dark" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+    <span class="input-group-text border-0" id="search-addon">
+      <i class="fas fa-search"></i>
+    </span>
+  </div>
+  <div class="add-post ms-2">
+    <a href="{{ route('create-post-form') }}" class="btn btn-success">Add Post</a>
+  </div>
+</div>
 
-<a href="{{route('create-post-form')}}"><button type="button" class="btn btn-success mx-2">add posts</button></a>
-<div class="row">  @foreach($posts as $post)
-    <div class="col-md-4">  <div class="card m-2">
-        <div class="card-body">
-          <p><img src="{{ $post->thumbnail != '' ? '/storage/' . $post->thumbnail : 'https://placehold.co/600x400' }}" style="width:100%; height:200px; object-fit:cover; object-position: center center;"></p>
-          <h5 class="card-title"><a href="{{route('single-post',$post->id)}}">{{$post->title}}</a></h5>
-          <p class="card-text">{{Str::limit($post->content, 150)}}</p>
-          <p class="card-text mt-3"><strong>Categories:</strong>
-            @foreach ($post->categories as $category)
-              <a href="{{route('category-collection', $category->id)}}">{{$category->name}}</a>
-            @endforeach 
-          </p>
-          <p><a href="/edit/{{$post->id}}" class="btn btn-primary">edit</a>
-            <a class="btn btn-danger mx-2" href="{{ route('delete-post', $post->id) }}">Delete</a>
-          
-          </p>
-        </div>
-      </div>
-    </div>
+<div id="loading" style="display: none; text-align:center">
+  <img src="/storage/thumbnails/bGzf6gxXW2GBdJlKPQOxDjlRMFwNODiXvDKiCmCY.svg" alt="Loading..." style="width:200px;">
+</div>
+
+<div class="row" id="content">
+  @foreach($posts as $post)
+    @include('layouts.partials.post-cards', ['post' => $post])
   @endforeach
 </div>
 
+@endsection
+
+@section('footer')
+<script>
+$(document).ready(function() {
+    var typingTimer;                // Timer identifier
+    var doneTypingInterval = 1000;  // Time in ms (2 seconds)
+
+    $('#search').on('keyup', function() {
+      var value = $(this).val();
+
+      $('#content').hide();
+
+      $('#loading').show();
+
+      clearTimeout(typingTimer);
+
+      typingTimer = setTimeout(function() {
+        
+        $.ajax({
+          type: 'GET',
+          url: '{{ route('search') }}',
+          data: { search: value },
+          success: function(data) {
+            console.log('Search results');
+            $('#content').html(data);
+            
+            $('#content').show();
+            $('#loading').hide();
+
+            if ($.trim(data) == '') {
+                $('#content').html('<p>No posts found.</p>').show();
+            }
+          },
+          error: function(xhr, status, error) {
+            console.error('AJAX Error:', status, error);
+            $('#loading').hide();
+          }
+        });
+      }, doneTypingInterval);
+    });
+  });
+</script>
 @endsection
