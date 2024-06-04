@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\API\PostApi;
+use App\Http\Controllers\API\v1\PostApi;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 //Routes for API's
-Route::apiResource('/posts-api',PostApi::class);
+Route::prefix('v1')->group(function () {
+    Route::apiResource('/api-posts',PostApi::class);
+
+});

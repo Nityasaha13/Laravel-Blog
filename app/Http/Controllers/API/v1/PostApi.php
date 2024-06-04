@@ -1,9 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostThumbnailRequest;
+use App\Models\Post;
+use App\Models\Category;
+use App\Models\PostCategories;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Resources\ApiPostsResource;
 
 class PostApi extends Controller
 {
@@ -12,7 +18,8 @@ class PostApi extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::with('categories')->get();
+        return ApiPostsResource::collection($posts);
     }
 
     /**
@@ -36,7 +43,8 @@ class PostApi extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::find($id);
+        return ApiPostsResource::make($post);
     }
 
     /**
@@ -60,6 +68,7 @@ class PostApi extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $post_id = Post::find($id);
+        $post_id->delete();
     }
 }

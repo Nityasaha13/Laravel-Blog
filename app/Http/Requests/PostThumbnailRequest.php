@@ -21,8 +21,12 @@ class PostThumbnailRequest extends FormRequest
      */
     public function rules(): array
     {
+        // return [
+        //     'thumbnail' => ['required','image']
+        // ];
+
         return [
-            'thumbnail' => ['required','image']
+            'thumbnail' => 'image'
         ];
     }
 }
