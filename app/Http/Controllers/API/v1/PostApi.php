@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\PostCategories;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\ApiPostsResource;
+use Hamcrest\Arrays\IsArray;
 
 class PostApi extends Controller
 {
@@ -23,19 +24,32 @@ class PostApi extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        // dd($data);
+
+        $create_post = Post::create([
+            'title' => $data['title'],
+            'content' => $data['content']
+        ]);
+
+        $c = is_array($data['categories']) ? $data['categories'] : explode(",", $data['categories']);
+
+        foreach($c as $category){
+            $create = [
+                'post_id' => $create_post->id,
+                'category_id' => $category
+            ];
+            $save_category = PostCategories::create($create);
+        }
+
+        if($create_post){
+            return "Post Created";
+        }
     }
 
     /**
@@ -48,19 +62,34 @@ class PostApi extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->all();
+        $post = Post::find($id);
+
+        if (!$post) {
+            return 'error, Post not found.';
+        }
+
+        // $c = is_array($data['categories']) ? $data['categories'] : explode(",", $data['categories']);
+
+        if($data && is_array($data['categories'])){
+            $post->update([
+                'title' => $data['title'],
+                'content' => $data['content']
+            ]);
+            
+            
+            if (isset($data['categories'])) {
+                $post->categories()->sync($data['categories']);
+            }
+
+            return "Successfull update";
+        }
+
+        return "error in updating";
     }
 
     /**
